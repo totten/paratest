@@ -24,6 +24,10 @@ class Suite extends ExecutableTest
         $this->functions = $functions;
     }
 
+    public function getFullyQualifiedClassName() {
+        return $this->fullyQualifiedClassName;
+    }
+
     /**
      * Return the collection of test methods
      *
