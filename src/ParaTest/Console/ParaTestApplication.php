@@ -16,6 +16,7 @@ class ParaTestApplication extends Application
     public function __construct()
     {
         parent::__construct(static::NAME, static::VERSION);
+        $this->setCatchExceptions(false);
     }
 
     /**
@@ -25,6 +26,7 @@ class ParaTestApplication extends Application
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
+        $output->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
         $this->add(new ParaTestCommand(new PHPUnit()));
         return parent::doRun($input, $output);
     }
