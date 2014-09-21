@@ -64,6 +64,11 @@ class Options
      */
     protected $annotations = array();
 
+    /**
+     * @var string|int|null
+     */
+    protected $batchSize;
+
     public function __construct($opts = array())
     {
         foreach(self::defaults() as $opt => $value)
@@ -77,6 +82,7 @@ class Options
         $this->runner = $opts['runner'];
         $this->noTestTokens = $opts['no-test-tokens'];
         $this->colors = $opts['colors'];
+        $this->batchSize = $opts['batch-size'];
 
         $this->filtered = $this->filterOptions($opts);
         $this->initAnnotations();
@@ -163,6 +169,7 @@ class Options
             'runner' => $this->runner,
             'no-test-tokens' => $this->noTestTokens,
             'colors' => $this->colors,
+            'batch-size' => $this->batchSize,
         ));
         if($configuration = $this->getConfigurationPath($filtered))
             $filtered['configuration'] = new Configuration($configuration);

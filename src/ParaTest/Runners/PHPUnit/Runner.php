@@ -144,8 +144,12 @@ class Runner
     {
         $loader = new SuiteLoader($this->options);
         $loader->load($this->options->path);
-        $batcher = new Batcher($this->options->processes, '/8'); // TODO $this->options->batchSize
-        $executables = ($this->options->functional) ? $batcher->batchMethods($loader->getTestMethods()) : $batcher->batchSuites($loader->getSuites());
+        if ($this->options->batchSize) {
+          $batcher = new Batcher($this->options->processes, $this->options->batchSize);
+          $executables = ($this->options->functional) ? $batcher->batchMethods($loader->getTestMethods()) : $batcher->batchSuites($loader->getSuites());
+        } else {
+          $executables = ($this->options->functional) ? $loader->getTestMethods() : $loader->getSuites();
+        }
         $this->pending = array_merge($this->pending, $executables);
         foreach($this->pending as $pending)
             $this->printer->addTest($pending);
